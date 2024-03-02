@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -31,6 +33,18 @@ public class CustomerService {
                     "A renda mensal do cliente é " +
                             "obrigatória e deve ser maior ou igual a 0 (zero)!");
         }
+    }
+
+    public HashMap<String,Object> deleteCustomer(Long idCustomer){
+
+        Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(idCustomer)).
+                orElseThrow(()-> new ResponseStatusException((HttpStatus.NOT_FOUND)));
+
+        customerRepository.delete(customer.get());
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result","cliente:"+ customer.get().getFirstNameCustomer() + "" + customer.get().getLastNameCustomer()+ "excluido com sucesso");
+        return result;
+
     }
 
 }
