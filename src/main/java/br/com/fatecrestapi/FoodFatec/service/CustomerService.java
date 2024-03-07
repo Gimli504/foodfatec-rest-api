@@ -37,14 +37,19 @@ public class CustomerService {
 
     public HashMap<String,Object> deleteCustomer(Long idCustomer){
 
-        Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(idCustomer)).
-                orElseThrow(()-> new ResponseStatusException((HttpStatus.NOT_FOUND)));
+        Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(idCustomer).
+                orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente nao encontrado")));
 
         customerRepository.delete(customer.get());
         HashMap<String, Object> result = new HashMap<>();
         result.put("result","cliente:"+ customer.get().getFirstNameCustomer() + "" + customer.get().getLastNameCustomer()+ "excluido com sucesso");
         return result;
 
+    }
+
+    public Optional<Customer> findCustomerByid(Long idCustomer){
+        return Optional.ofNullable(customerRepository.findById(idCustomer)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado")));
     }
 
 }
