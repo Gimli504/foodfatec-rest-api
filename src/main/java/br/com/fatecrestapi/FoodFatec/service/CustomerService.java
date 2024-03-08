@@ -52,4 +52,16 @@ public class CustomerService {
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado")));
     }
 
+    public Customer updateCutomer(Customer customer){
+        if(customer.getMonthlyIncomeCustomer().compareTo(BigDecimal.valueOf(0))>=0 &&
+        !customer.getPasswordCustomer().equals("") && customer.getPasswordCustomer() != null){
+               if(findCustomerByid(customer.getIdCustomer())!= null){
+                    return customerRepository.saveAndFlush(customer);
+               }else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente Não encontrado");
+                   }
+        }else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"A renda salarial deve ser maior ou igual a 0");
+            }
+        }
 }
