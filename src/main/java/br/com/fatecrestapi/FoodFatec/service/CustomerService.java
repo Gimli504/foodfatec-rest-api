@@ -58,7 +58,7 @@ public class CustomerService {
             }
         }
 
-git
+
         public Boolean validateCustomer(Customer customer){
         if(customer.getMonthlyIncomeCustomer() != null &&
         customer.getMonthlyIncomeCustomer().compareTo(BigDecimal.valueOf(0)) >= 0 &&
