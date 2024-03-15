@@ -21,8 +21,12 @@ public class CategoryService {
     }
 
     public Category saveCategory(Category category) {
+       if(category.getNameCategory() != null ){
+           return categoryRepository.saveAndFlush(category);
+       }else{
+           throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Os campos estao vazios");
+       }
 
-        return categoryRepository.saveAndFlush(category);
     }
 
     public HashMap<String,Object> deleteCategory(Long idCategory){
@@ -45,7 +49,11 @@ public class CategoryService {
     public Category updateCategory(Category category){
 
 
+        if(category.getNameCategory() != null ){
             return categoryRepository.saveAndFlush(category);
+        }else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Os campos estao vazios");
+        }
 
 
     }

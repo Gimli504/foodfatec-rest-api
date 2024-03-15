@@ -14,9 +14,9 @@ public class Category {
     @Column(name = "id_category")
     private Long idCategory;
 
-    @Column(name = "name_category", nullable = false, length = 300)
+    @Column(name = "name_category", nullable = false, length = 300,unique = true)
     private String nameCategory;
 
-    @Column(name = "description_category", nullable = false, length = 300)
+    @Column(name = "description_category", nullable = false, length = 1000)
     private String descriptionCategory;
 }
