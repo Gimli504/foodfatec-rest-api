@@ -1,15 +1,19 @@
 package br.com.fatecrestapi.FoodFatec.service;
 
 import br.com.fatecrestapi.FoodFatec.entity.Category;
+import br.com.fatecrestapi.FoodFatec.entity.Customer;
 import br.com.fatecrestapi.FoodFatec.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CategoryService {
 
 
@@ -21,7 +25,7 @@ public class CategoryService {
     }
 
     public Category saveCategory(Category category) {
-       if(category.getNameCategory() != null ){
+       if(validateCategory(category)){
            return categoryRepository.saveAndFlush(category);
        }else{
            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Os campos estao vazios");
@@ -49,13 +53,21 @@ public class CategoryService {
     public Category updateCategory(Category category){
 
 
-        if(category.getNameCategory() != null ){
+        if(validateCategory(category) ){
             return categoryRepository.saveAndFlush(category);
         }else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Os campos estao vazios");
         }
 
 
+    }
+
+    public Boolean validateCategory(Category category){
+        if(category.getNameCategory().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
