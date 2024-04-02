@@ -19,4 +19,6 @@ public class Category {
 
     @Column(name = "description_category", nullable = false, length = 1000)
     private String descriptionCategory;
+
+
 }

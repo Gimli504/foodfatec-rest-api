@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -88,6 +89,20 @@ public class CustomerService {
             } else {
                 return false;
             }
+        }
+
+
+        public Optional<Customer>  findByCpfCustomer(String cpf){
+        return Optional.ofNullable(customerRepository.findByCpfCustomer(cpf).
+                orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"nenhum cliente com esse cpf foi encontrado")));
+        }
+       public Optional<Customer>  findByEmailCustomer(String email){
+        return Optional.ofNullable(customerRepository.findByEmailCustomer(email).
+                orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"nenhum cliente com esse email foi encontrado")));
+        }
+
+        public List<Customer> findByDateCreate(LocalDate dateCreatedCustomer){
+        return customerRepository.findByDateCreate(dateCreatedCustomer);
         }
 
 

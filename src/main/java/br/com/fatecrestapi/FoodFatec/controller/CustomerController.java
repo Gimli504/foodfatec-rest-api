@@ -25,6 +25,24 @@ public class CustomerController {
         List<Customer> result = customerService.getInfoCustomer();
         return ResponseEntity.ok().body(result);
     }
+    @GetMapping (value = "/findCpf")
+    public ResponseEntity<Object> getCustomerByCpf(@RequestBody Customer customer){
+        Optional<Customer> result = customerService.findByCpfCustomer(customer.getCpfCustomer());
+        return ResponseEntity.ok().body(result);
+    }
+    @GetMapping (value = "/findEmail/{email}")
+    public ResponseEntity<Object> getCustomerByEmail(@PathVariable String email){
+        Optional<Customer> result = customerService.findByEmailCustomer(email);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping(value = "/findByDateCreated")
+    public ResponseEntity<Object> getCustomerDateCreated(@RequestBody Customer customer){
+        List<Customer> result  = customerService.findByDateCreate(customer.getDateCreateCustomer());
+        return ResponseEntity.ok().body(result);
+    }
+
+
 
     @PostMapping(value = "/create")
     public ResponseEntity<Object> saveCustomer(@RequestBody Customer customer) {
